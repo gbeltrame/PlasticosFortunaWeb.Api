@@ -33,7 +33,7 @@ namespace PlasticosFortunaWeb.Api.Services
             _opcion.ReplaceOne(opcion => opcion.Id == id, opcionIn);
 
         public void Remove(Opcion opcionIn) =>
-            _opcion.DeleteOne(book => book.Id == opcionIn.Id);
+            _opcion.DeleteOne(opcion => opcion.Id == opcionIn.Id);
 
         public void Remove(string id) => 
             _opcion.DeleteOne(opcion => opcion.Id == id);

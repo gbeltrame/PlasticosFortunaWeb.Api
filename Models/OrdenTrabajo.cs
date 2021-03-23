@@ -14,7 +14,11 @@ namespace PlasticosFortunaWeb.Api.Models
         public string sector { get; set; }
         public string idCliente { get; set; }
         public ICollection<ItemOrdenTrabajo> items { get; set; }
+
+        [BsonRepresentation(BsonType.DateTime)]
         public DateTime fechaAlta { get; set; }
+        
+        [BsonRepresentation(BsonType.DateTime)]
         public DateTime fechaModificacion { get; set; }
     }
 }

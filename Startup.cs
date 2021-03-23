@@ -33,6 +33,12 @@ namespace PlasticosFortunaWeb.Api
             services.AddSingleton<IPlasticosFortunaDBSettings>(sp =>
                 sp.GetRequiredService<IOptions<PlasticosFortunaDBSettings>>().Value);
             services.AddSingleton<TestService>();
+            services.AddSingleton<OrdenTrabajoService>();
+            services.AddSingleton<HistorialOrdenTrabajoService>();
+            services.AddSingleton<PersonaService>();
+            services.AddSingleton<StockService>();
+            services.AddSingleton<HistorialStockService>();
+            services.AddSingleton<OpcionService>();
             services.AddControllers();
         }
 

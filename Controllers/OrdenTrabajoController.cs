@@ -39,53 +39,53 @@ namespace PlasticosFortunaWeb.Api.Controllers
         [HttpPost]
         public ActionResult<OrdenTrabajo> Create(OrdenTrabajo orden)
         {
-            var ordenCreated = _ordenTrabajoService.Create(orden);
+                var ordenCreated = _ordenTrabajoService.Create(orden);
+    
+                if (orden == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    HistorialOrdenTrabajo hist = new HistorialOrdenTrabajo();
+                    hist.estado = orden.estado;
+                    hist.fechaCambio = DateTime.Now;
+                    hist.idOrden = orden.Id;
+                    hist.sector = orden.sector;
+                    _histOrdenTrabajoService.Create(hist);
+                }
+    
+                return CreatedAtRoute("GetOrdenTrabajo", new { id = orden.Id.ToString() }, orden);
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public IActionResult Update(string id, OrdenTrabajo ordenIn)
+        {
+            var orden = _ordenTrabajoService.Get(id);
 
             if (orden == null)
             {
-                return BadRequest();
-            }
-            else
-            {
-                HistorialOrdenTrabajo hist = new HistorialOrdenTrabajo();
-                hist.estado = orden.estado;
-                hist.fechaCambio = DateTime.Now;
-                hist.idOrden = orden.Id;
-                hist.sector = orden.sector;
-                _histOrdenTrabajoService.Create(hist);
+                return NotFound();
             }
 
-            return CreatedAtRoute("GetOrdenTrabajo", new { id = orden.Id.ToString() }, orden);
+            _ordenTrabajoService.Update(id, ordenIn);
+
+            return NoContent();
         }
 
-        // [HttpPut("{id:length(24)}")]
-        // public IActionResult Update(string id, Book bookIn)
-        // {
-        //     var book = _bookService.Get(id);
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult Delete(string id)
+        {
+            var orden = _ordenTrabajoService.Get(id);
 
-        //     if (book == null)
-        //     {
-        //         return NotFound();
-        //     }
+            if (orden == null)
+            {
+                return NotFound();
+            }
 
-        //     _bookService.Update(id, bookIn);
+            _ordenTrabajoService.Remove(orden.Id);
 
-        //     return NoContent();
-        // }
-
-        // [HttpDelete("{id:length(24)}")]
-        // public IActionResult Delete(string id)
-        // {
-        //     var book = _bookService.Get(id);
-
-        //     if (book == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _bookService.Remove(book.Id);
-
-        //     return NoContent();
-        // }
+            return NoContent();
+        }
     }
 }

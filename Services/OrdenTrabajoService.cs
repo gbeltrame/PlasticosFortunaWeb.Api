@@ -25,8 +25,8 @@ namespace PlasticosFortunaWeb.Api.Services
 
         public OrdenTrabajo Create(OrdenTrabajo ordenTrabajo)
         {
-            _ordenTrabajo.InsertOne(ordenTrabajo);
-            return ordenTrabajo;
+                _ordenTrabajo.InsertOne(ordenTrabajo);
+                return ordenTrabajo;
         }
 
         public void Update(string id, OrdenTrabajo ordenTrabajoIn) =>

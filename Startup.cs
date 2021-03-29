@@ -39,6 +39,12 @@ namespace PlasticosFortunaWeb.Api
             services.AddSingleton<StockService>();
             services.AddSingleton<HistorialStockService>();
             services.AddSingleton<OpcionService>();
+            services.AddMvc(
+                options =>
+                {
+                    options.Filters.Add(typeof(ValidateModelStateAttribute));
+                }
+            );
             services.AddControllers();
         }
 
